@@ -78,44 +78,74 @@ console.log("Output of task 3:");
 console.log(showNames(root));
 
 //Task 4
-function Human(name, phone) {
-  this.name = name;
-  this.phone = phone;
+//--------------------------------------------------ES5 variant-----------------------------------
+// function Human(name, phone) {
+//   this.name = name;
+//   this.phone = phone;
+// }
+
+// Human.prototype.introduce = function () {
+//   console.log(`Привіт, мене звати ${this.name}, мій номер ${this.phone}`);
+// };
+
+// function Student(name, phone, course) {
+//   Human.call(this, name, phone);
+//   this.course = course;
+// }
+
+// Student.prototype = Object.create(Human.prototype);
+// Student.prototype.constructor = Student;
+// Student.prototype.study = function () {
+//   console.log(`Я навчаюся на ${this.course} курсі`);
+// };
+
+// function Teacher(name, phone, subject) {
+//   Human.call(this, name, phone);
+//   this.subject = subject;
+// }
+
+// Teacher.prototype = Object.create(Human.prototype);
+// Teacher.prototype.constructor = Teacher;
+// Teacher.prototype.teach = function () {
+//   console.log(`Я викладаю ${this.subject}`);
+// };
+
+//--------------------------------------------------ES6 variant-----------------------------------
+class Human {
+  constructor(name, phone) {
+    this.name = name;
+    this.phone = phone;
+  }
+  introduce() {
+    console.log(`Привіт, мене звати ${this.name}, мій номер ${this.phone}`);
+  }
 }
 
-Human.prototype.introduce = function () {
-  console.log(`Привіт, мене звати ${this.name}, мій номер ${this.phone}`);
-};
-
-function Student(name, phone, course) {
-  Human.call(this, name, phone);
-  this.course = course;
+class Student extends Human {
+  constructor(name, phone, course) {
+    super(name, phone);
+    this.course = course;
+  }
+  study() {
+    console.log(`Я навчаюся на ${this.course} курсі`);
+  }
 }
 
-Student.prototype = Object.create(Human.prototype);
-Student.prototype.constructor = Student;
-Student.prototype.study = function () {
-  console.log(`Я навчаюся на ${this.course} курсі`);
-};
-
-function Teacher(name, phone, subject) {
-  Human.call(this, name, phone);
-  this.subject = subject;
+class Teacher extends Human {
+  constructor(name, phone, subject) {
+    super(name, phone);
+    this.subject = subject;
+  }
+  teach() {
+    console.log(`Я викладаю ${this.subject}`);
+  }
 }
-
-Teacher.prototype = Object.create(Human.prototype);
-Teacher.prototype.constructor = Teacher;
-Teacher.prototype.teach = function () {
-  console.log(`Я викладаю ${this.subject}`);
-};
-
 const exampleStudent = new Student("P. Diddy", "00000000002", "Philosophy");
 const exampleTeacher = new Teacher(
   "Jeffry Epstein",
   "00000000001",
   "Philosophy"
 );
-
 console.log("Task 4 output:");
 exampleStudent.introduce();
 exampleTeacher.introduce();
